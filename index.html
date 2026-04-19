@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuizAI – AI-Powered Quiz Generator</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">QuizAI</span>
+      </div>
+      <nav class="nav">
+        <a href="#generate">Generate</a>
+        <a href="#how">How It Works</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Generate Quizzes on<br/><span class="highlight">Any Topic</span> with AI</h1>
+      <p class="hero-sub">Powered by Claude AI — instantly create custom multiple-choice quizzes, test your knowledge, and track your score.</p>
+      <a href="#generate" class="btn-primary">Start Quizzing →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card1">🧠 Science</div>
+      <div class="floating-card card2">🌍 Geography</div>
+      <div class="floating-card card3">📜 History</div>
+      <div class="floating-card card4">💻 Tech</div>
+      <div class="floating-card card5">🎨 Art</div>
+    </div>
+  </section>
+
+  <!-- GENERATOR SECTION -->
+  <section class="generator" id="generate">
+    <div class="section-label">Step 1 — Configure</div>
+    <h2>Build Your Quiz</h2>
+    <p class="section-sub">Enter any topic and we'll generate a custom quiz just for you.</p>
+
+    <div class="config-card">
+      <div class="config-row">
+        <div class="config-field">
+          <label for="topic">Topic</label>
+          <input type="text" id="topic" placeholder="e.g. The Solar System, Python Programming, World War II…" maxlength="100"/>
+        </div>
+      </div>
+      <div class="config-row two-col">
+        <div class="config-field">
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty">
+            <option value="easy">🟢 Easy</option>
+            <option value="medium" selected>🟡 Medium</option>
+            <option value="hard">🔴 Hard</option>
+          </select>
+        </div>
+        <div class="config-field">
+          <label for="numQuestions">Number of Questions</label>
+          <select id="numQuestions">
+            <option value="3">3 Questions</option>
+            <option value="5" selected>5 Questions</option>
+            <option value="8">8 Questions</option>
+            <option value="10">10 Questions</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-generate" id="generateBtn" onclick="generateQuiz()">
+        <span id="btnText">✨ Generate Quiz</span>
+      </button>
+      <p class="api-note">⚠️ Add your Anthropic API key in <code>script.js</code> to enable quiz generation.</p>
+    </div>
+  </section>
+
+  <!-- QUIZ AREA -->
+  <section class="quiz-area" id="quizArea" style="display:none;">
+    <div class="section-label">Step 2 — Answer</div>
+    <h2>Quiz: <span id="quizTopicLabel"></span></h2>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <p class="progress-text" id="progressText"></p>
+    <div id="questionsContainer"></div>
+    <button class="btn-submit" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+      📊 Submit &amp; See Results
+    </button>
+  </section>
+
+  <!-- RESULTS SECTION -->
+  <section class="results-area" id="resultsArea" style="display:none;">
+    <div class="section-label">Step 3 — Results</div>
+    <h2>Your Results</h2>
+    <div class="score-card">
+      <div class="score-circle">
+        <span id="scorePercent">0%</span>
+        <small id="scoreLabel">Score</small>
+      </div>
+      <div class="score-meta">
+        <p id="scoreDetail"></p>
+        <p id="scoreFeedback"></p>
+      </div>
+    </div>
+    <div id="answersReview"></div>
+    <button class="btn-primary" onclick="resetQuiz()">🔄 Try Another Quiz</button>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-label">Under the Hood</div>
+    <h2>How It Works</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>You Choose a Topic</h3>
+        <p>Type any subject — from quantum physics to pop culture — and select your difficulty level.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Claude AI Generates</h3>
+        <p>Your prompt is sent to the Claude API, which crafts unique multiple-choice questions with plausible distractors.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>You Answer &amp; Score</h3>
+        <p>Answer at your own pace, submit, and instantly see your score with full answer explanations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-label">About the Project</div>
+    <h2>Built by Team QuizAI</h2>
+    <p class="about-text">This project was built as part of <strong>Project Activity 4 – Automated Software Testing and Deployment</strong>. Our team of 4–5 developers designed and deployed a fully client-side AI quiz platform using HTML, CSS, and vanilla JavaScript — integrated with the Anthropic Claude API.</p>
+    <div class="team-grid">
+      <div class="team-card"><div class="avatar">👤 Joshua</div><p>Frontend Dev</p></div>
+      <div class="team-card"><div class="avatar">👤 Rodrigo</div><p>API Integration</p></div>
+      <div class="team-card"><div class="avatar">👤 Christian</div><p>UI/UX Design</p></div>
+      <div class="team-card"><div class="avatar">👤 Solomon</div><p>Testing &amp; QA</p></div>
+      <div class="team-card"><div class="avatar">👤 Solomon</div><p>Deployment</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>⚡ QuizAI — Powered by <a href="https://anthropic.com" target="_blank">Claude API</a> · Deployed on GitHub Pages</p>
+    <p class="footer-links"><a href="https://github.com" target="_blank">GitHub Repo</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
